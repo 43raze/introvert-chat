@@ -1,0 +1,19 @@
+# IDE / Editor
+.idea
+.vscode/*
+
+# package-lock
+package-lock.json
+
+# macOS
+.DS_Store
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Dependency directories
+node_modules/
+old/

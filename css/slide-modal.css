@@ -1,0 +1,47 @@
+.slide-modal {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  height: 85%;
+  width: 100%;
+  background-color: #fffa;
+  transition: all 0.4s ease;
+  font-size: 22px;
+  border: 1px solid #ccc;
+}
+
+.slide-modal .wrap-enter-form {
+  width: 60%;
+}
+.slide-modal .wrap-enter-form > input {
+  width: 100%;
+  font-family: Calibri, sans-serif;
+  outline: none;
+  color: var(--master_txt_clr);
+  font-size: 22px;
+  font-weight: bold;
+  height: 50px;
+  margin-bottom: 65px;
+}
+
+.slide-modal .wrap-enter-button {
+  text-align: center;
+}
+.slide-modal .wrap-enter-button > label {
+  padding: 25px;
+  background-color: #ccc;
+  line-height: 80px;
+  cursor: pointer;
+  pointer-events: none;
+}
+.slide-modal .wrap-enter-button > label:hover {
+  background-color: #cccc;
+  opacity: 85%;
+}
+
+.slide-modal #input_nickname:valid + .wrap-enter-button > label {
+  pointer-events: all;
+}
+#chk_sm:checked + .slide-modal {
+  left: -100%;
+}

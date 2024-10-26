@@ -1,0 +1,24 @@
+:root {
+  --master_txt_clr: #2c3e50;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  /* background: none !important; */
+}
+
+html {
+  height: 100%;
+  font-family: Calibri, sans-serif;
+  color: var(--master_txt_clr);
+  cursor: default;
+}
+
+body {
+  height: 100%;
+}
+
+/* div {
+  border: 1px solid #333;
+} */

@@ -1,0 +1,107 @@
+.light.main {
+  background: url('../img/bgdust.png');
+}
+
+.light .chat {
+  border: 0;
+  --master_txt_clr: hsl(180, 30%, 15%);
+  color: var(--master_txt_clr);
+  background: linear-gradient(45deg, hsl(180, 85%, 60%), hsl(105, 85%, 60%));
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 35px;
+  box-shadow: 0px 0px 7px #7777;
+}
+
+.light .content .right {
+  background-color: #fff2;
+  border-left: 1px solid #fff2;
+}
+
+.light .wrap-send-message {
+  position: relative;
+}
+.light .wrap-send-message > input {
+  border: 0;
+}
+
+.light .wrap-send-message > [type='submit'] {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  bottom: 0;
+  background-color: inherit;
+  text-shadow: inherit;
+}
+
+.light .wrap-send-message > [type='text'] {
+  /* text-indent: 21px; */
+  padding-left: 21px;
+  padding-right: 60px;
+  border-top: 1px solid #fffa;
+  background-color: #fff4;
+  transition: all 0.3s ease;
+  text-shadow: inherit;
+}
+.light .wrap-send-message > [type='text']:hover {
+  border-top: 1px solid #fff6;
+  background-color: #fff8;
+}
+.light .wrap-send-message > [type='text']:focus {
+  border-top: 1px solid #fff8;
+  background-color: #fff6;
+}
+.light .wrap-send-message > [type='text']:active {
+  border-top: 1px solid #fff4;
+  background-color: #fffa;
+}
+
+.light .wrap-send-message > [type='submit']:hover {
+  color: hsl(180, 30%, 45%);
+}
+.light .wrap-send-message > [type='submit']:focus {
+  color: hsl(180, 30%, 30%);
+}
+.light .wrap-send-message > [type='submit']:active {
+  color: hsl(180, 30%, 60%);
+}
+
+.light .slide-modal {
+  border: 0px solid #cfc;
+}
+
+.light .slide-modal .wrap-enter-button > label {
+  background-color: hsl(180, 85%, 60%);
+}
+.light .slide-modal .wrap-enter-button > label:hover {
+  background-color: hsl(180, 85%, 60%);
+}
+
+.light .msg-line {
+  display: inline-block;
+  /* width: 100%; */
+  background-color: #fffb;
+  padding: 5px 15px;
+  border-radius: 16px;
+  margin-top: 5px;
+  word-break: break-all;
+  /* line-height: 1; */
+}
+
+.light .nickname-list,
+.light .chat-flow {
+  scrollbar-color: #fffd transparent;
+  scrollbar-width: thin;
+}
+.light .nickname-list::-webkit-scrollbar,
+.light .chat-flow::-webkit-scrollbar {
+  width: 8px;
+}
+.light .nickname-list::-webkit-scrollbar-thumb,
+.light .chat-flow::-webkit-scrollbar-thumb {
+  background-color: #fffd;
+  border-radius: 5px;
+}
+.light .nickname-list::-webkit-scrollbar-track,
+.light .chat-flow::-webkit-scrollbar-track {
+  background-color: transparent;
+}

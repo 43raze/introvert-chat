@@ -1,0 +1,63 @@
+#chk_sm {
+  display: none;
+}
+
+.main {
+  height: 100%;
+}
+
+.chat {
+  min-width: 540px;
+  width: 60%;
+  height: 85%;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.header {
+  height: 15%;
+}
+
+.content {
+  height: 75%;
+}
+
+.footer {
+  height: 10%;
+}
+
+.header > .right {
+  flex: 5;
+}
+
+.content > .left {
+  flex: 2;
+}
+
+.wrap-span {
+  padding: 5px;
+}
+
+.wrap-chat-flow {
+  position: relative;
+  height: 100%;
+}
+
+.wrap-chat-flow > .chat-flow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 100%;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.nickname-list {
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.wrap-send-message {
+  height: 100%;
+}

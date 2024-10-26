@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/root.css" />
+    <link rel="stylesheet" href="css/flex.css" />
+    <link rel="stylesheet" href="css/frame.css" />
+    <link rel="stylesheet" href="css/items.css" />
+    <link rel="stylesheet" href="css/slide-modal.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/media.css" />
+
+    <script defer src="js/model.js"></script>
+    <script defer src="js/controller.js"></script>
+    <script defer src="js/view.js"></script>
+  </head>
+  <body>
+    <div class="main flex f_centered light">
+      <div class="chat">
+        <div class="header flex f_tile">
+          <div class="left flex f_centered">
+            <label for="chk_sm">
+              <svg width="32px" height="32px" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+              </svg>
+            </label>
+          </div>
+          <div class="right flex f_centered">
+            <div class="wrap-h">
+              <h1>Интроверт чат</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="content flex f_tile">
+          <div class="left">
+            <div class="wrap-chat-flow">
+              <div class="chat-flow" spellcheck="false"></div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="nickname-list"></div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="wrap-send-message flex f_tile">
+            <input type="text" spellcheck="false" id="input_msg" />
+            <input type="submit" value="&ldca;" id="btn_send_msg" />
+          </div>
+        </div>
+
+        <input type="checkbox" id="chk_sm" />
+        <div class="slide-modal flex f_centered">
+          <div class="wrap-enter-form">
+            <label for="input_nickname">Ваш никнейм:</label>
+            <input
+              value=""
+              type="text"
+              id="input_nickname"
+              spellcheck="false"
+              autocomplite="off"
+              required
+            />
+            <div class="wrap-enter-button">
+              <label for="chk_sm" id="btn_enter">Войти в чат</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

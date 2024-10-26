@@ -1,0 +1,35 @@
+.flex {
+  display: flex;
+  overflow: hidden;
+}
+.flex > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f_tile > * {
+  flex: 1;
+}
+
+.f_row {
+  justify-content: space-around;
+  align-items: center;
+}
+.f_row > * {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.f_box {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.f_box > * {
+  flex-basis: 200px;
+  margin: 5px;
+}
+
+.f_centered > * {
+  margin: auto;
+}
