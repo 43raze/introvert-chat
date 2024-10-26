@@ -1,30 +1,50 @@
-const chatFlow = document.querySelector('.chat-flow')
-const nicknameList = document.querySelector('.nickname-list')
+const elChatFlow = document.querySelector('.chat-flow')
+const elNicknameList = document.querySelector('.nickname-list')
+const elButtonEnter = document.querySelector('#btn_enter')
+const elInputTextNickname = document.querySelector('#input_nickname')
+const elInputMessage = document.querySelector('#input_msg')
+const elButtonSendMessage = document.querySelector('#btn_send_msg')
+
+elButtonEnter.addEventListener('click', onClickButtonLogin)
+elButtonSendMessage.addEventListener('click', onSendMessage)
+elInputMessage.addEventListener('keydown', onSendMessage)
+
+function onClickButtonLogin() {
+  const nickname = elInputTextNickname.value.trim()
+  if (!nickname) return
+  handleLogin(nickname)
+  elInputTextNickname.value = ''
+}
+
+function onSendMessage(e) {
+  if (e.key === 'Enter' || e.type === 'click') {
+    handleSendMessage(elInputMessage.value)
+  }
+}
 
 function renderOnlineNicknames(nicknames) {
-  nicknameList.innerHTML = ''
+  elNicknameList.innerHTML = ''
   nicknames.forEach(nickname => {
     const elNickname = generateOnlineNickname(nickname)
-    nicknameList.appendChild(elNickname)
+    elNicknameList.appendChild(elNickname)
   })
 }
 
 function renderMessages(messages) {
-  chatFlow.innerHTML = ''
+  elChatFlow.innerHTML = ''
   messages.forEach(message => {
     const elMessage = generateMessageElement(message)
-    chatFlow.appendChild(elMessage)
+    elChatFlow.appendChild(elMessage)
   })
   scrollToBottom()
 }
+
 function generateOnlineNickname(nickname) {
   const elDiv = document.createElement('div')
   const elSpan = document.createElement('span')
-
   elDiv.classList.add('wrap-span')
   elSpan.textContent = nickname
   elDiv.appendChild(elSpan)
-
   return elDiv
 }
 
@@ -40,5 +60,5 @@ function generateMessageElement(message) {
 }
 
 function scrollToBottom() {
-  chatFlow.scrollTop = chatFlow.scrollHeight
+  elChatFlow.scrollTop = elChatFlow.scrollHeight
 }
