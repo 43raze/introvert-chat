@@ -1,19 +1,55 @@
 const buttonEnter = document.querySelector('#btn_enter')
-const chatFlow = document.querySelector('.chat-flow')
-const nicknameList = document.querySelector('.nickname-list')
 const elInputTextNickname = document.querySelector('#input_nickname')
 const elInputMessage = document.querySelector('#input_msg')
 const buttonSendMessage = document.querySelector('#btn_send_msg')
 
+let lastMessageTime = 0
+
+buttonEnter.addEventListener('click', onClickButtonLogin)
+buttonSendMessage.addEventListener('click', onClickButtonSendMessage)
+elInputMessage.addEventListener('keydown', onKeyDownInput)
+
+function onClickButtonLogin() {
+  const nickname = elInputTextNickname.value.trim()
+  if (!nickname) return
+  handleLogin(nickname)
+  elInputTextNickname.value = ''
+}
+
+function onClickButtonSendMessage() {
+  const message = elInputMessage.value.trim()
+  handleSendMessage(message)
+}
+
+function onKeyDownInput(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault()
+    const message = elInputMessage.value.trim()
+    handleSendMessage(message)
+  }
+}
+
 function handleLogin(nickname) {
-  chatModel.isLogin(nickname)
-  renderOnlineNicknames(chatModel.onlineNicknames)
-  renderMessages()
+  if (chatModel.isLogin(nickname)) {
+    renderOnlineNicknames(chatModel.onlineNicknames)
+    renderMessages(chatModel.messages)
+  }
 }
 
 function handleSendMessage(message) {
-  if (!message.trim()) return
+  const currentTime = Date.now()
+  if (currentTime - lastMessageTime < 500) {
+    chatModel.addSystemMessage(
+      'Сообщения можно отправлять не чаще одного раза в секунду.'
+    )
+    renderMessages(chatModel.messages)
+    return
+  }
+
+  if (!message) return
+
   chatModel.addUserMessage(message)
-  renderMessages()
+  renderMessages(chatModel.messages)
   elInputMessage.value = ''
+  lastMessageTime = currentTime
 }

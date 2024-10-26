@@ -4,12 +4,11 @@ const chatModel = {
   messages: [],
 
   isLogin(nickname) {
-    if (nickname === '') return
+    if (nickname === '' || this.isNicknameOnline(nickname)) return false
     this.currentNickname = nickname
-    if (!this.isNicknameOnline(nickname)) {
-      this.onlineNicknames.push(nickname)
-      this.addWelcomeMessage()
-    }
+    this.onlineNicknames.push(nickname)
+    this.addWelcomeMessage()
+    return true
   },
 
   isNicknameOnline(nickname) {
@@ -17,10 +16,30 @@ const chatModel = {
   },
 
   addWelcomeMessage() {
-    this.messages.push(`{system} ${this.currentNickname} вошел(ла) в чат`)
+    const message = {
+      type: 'system',
+      text: `${this.currentNickname} вошел(ла) в чат`,
+    }
+
+    this.messages.push(message)
   },
 
   addUserMessage(message) {
-    this.messages.push(`[${this.currentNickname}]: ${message}`)
+    const userMessage = {
+      type: 'user',
+      text: message,
+      nickname: this.currentNickname,
+    }
+
+    this.messages.push(userMessage)
+  },
+
+  addSystemMessage(text) {
+    const systemMessage = {
+      type: 'system',
+      text: text,
+    }
+
+    this.messages.push(systemMessage)
   },
 }

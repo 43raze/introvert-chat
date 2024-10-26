@@ -1,34 +1,5 @@
-buttonEnter.addEventListener('click', onClickButtonLogin)
-elInputTextNickname.addEventListener('keydown', onKeyDownInputNickname)
-buttonSendMessage.addEventListener('click', onClickButtonSendMessage)
-elInputMessage.addEventListener('keydown', onKeyDownInput)
-
-function onClickButtonLogin() {
-  const nickname = elInputTextNickname.value.trim()
-  if (!nickname) return
-  handleLogin(nickname)
-  elInputTextNickname.value = ''
-}
-
-function onClickButtonSendMessage() {
-  const message = elInputMessage.value
-  handleSendMessage(message)
-}
-
-function onKeyDownInputNickname(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault()
-    onClickButtonLogin()
-  }
-}
-
-function onKeyDownInput(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault()
-    const message = elInputMessage.value
-    handleSendMessage(message)
-  }
-}
+const chatFlow = document.querySelector('.chat-flow')
+const nicknameList = document.querySelector('.nickname-list')
 
 function renderOnlineNicknames(nicknames) {
   nicknameList.innerHTML = ''
@@ -38,15 +9,14 @@ function renderOnlineNicknames(nicknames) {
   })
 }
 
-function renderMessages() {
+function renderMessages(messages) {
   chatFlow.innerHTML = ''
-  chatModel.messages.forEach(message => {
-    const elMessage = document.createElement('div')
-    elMessage.textContent = message
+  messages.forEach(message => {
+    const elMessage = generateMessageElement(message)
     chatFlow.appendChild(elMessage)
   })
+  scrollToBottom()
 }
-
 function generateOnlineNickname(nickname) {
   const elDiv = document.createElement('div')
   const elSpan = document.createElement('span')
@@ -56,4 +26,19 @@ function generateOnlineNickname(nickname) {
   elDiv.appendChild(elSpan)
 
   return elDiv
+}
+
+function generateMessageElement(message) {
+  const elMessage = document.createElement('div')
+  if (message.type === 'system') {
+    elMessage.innerHTML = `<i>{system} <u>${message.text}</u></i>`
+  } else {
+    elMessage.innerHTML = `<span class="msg-line"><b>[${message.nickname}]</b>: ${message.text}</span>`
+  }
+  elMessage.classList.add('message')
+  return elMessage
+}
+
+function scrollToBottom() {
+  chatFlow.scrollTop = chatFlow.scrollHeight
 }
