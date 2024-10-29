@@ -12,8 +12,8 @@ const chatModel = {
   onlineNicknames: [],
   messages: [],
   bannedUsers: [],
-  forbiddenWords: ['банан', 'огурец', 'баклажан'],
-  forbiddenUrls: ['https://', 'http://'],
+  censoredWords: ['банан', 'огурец', 'баклажан'],
+  spamWords: ['https://', 'http://'],
 
   isNicknameOnline(nickname) {
     return this.onlineNicknames.includes(nickname)
@@ -24,12 +24,13 @@ const chatModel = {
   },
 
   signIn(nickname) {
-    if (nickname && !this.isUserBanned(nickname)) {
-      this.currentNickname = nickname
-      this.addOnlineNickname(nickname)
-    } else if (this.isUserBanned(nickname)) {
+    if (nickname === '') return
+    if (this.isUserBanned(nickname)) {
       this.addSystemMessage(`Пользователь ${nickname} забанен.`)
+      return
     }
+    this.currentNickname = nickname
+    this.addOnlineNickname(nickname)
   },
 
   addOnlineNickname(nickname) {
@@ -40,28 +41,27 @@ const chatModel = {
   },
 
   addUserMessage(messageText) {
-    const message = {
-      type: 'user',
-      text: messageText,
-      nickname: this.currentNickname,
-    }
+    if (this.currentNickname === '') return
 
     if (!isTimeValid()) {
       this.addSystemMessage('Не флуди.')
       return
     }
 
-    if (this.bannedWords(messageText)) {
+    if (this.checkMessageTextByCensoredWords(messageText)) {
       this.banUser(this.currentNickname)
-      this.addSystemMessage(
-        `Пользователь ${this.currentNickname} забанен за использование запрещённых слов.`
-      )
       return
     }
 
-    if (this.bannedUrl(messageText)) {
+    if (this.checkMessageTextBySpamWords(messageText)) {
       this.addSystemMessage('Запрещено использовать ссылки.')
       return
+    }
+
+    const message = {
+      type: 'user',
+      text: messageText,
+      nickname: this.currentNickname,
     }
 
     this.messages.push(message)
@@ -76,22 +76,22 @@ const chatModel = {
     this.messages.push(systemMessage)
   },
 
-  bannedWords(messageText) {
-    return this.forbiddenWords.some(word =>
+  checkMessageTextByCensoredWords(messageText) {
+    return this.censoredWords.some(word =>
       messageText.toLowerCase().includes(word)
     )
   },
 
-  bannedUrl(messageText) {
-    return this.forbiddenUrls.some(url => messageText.includes(url))
+  checkMessageTextBySpamWords(messageText) {
+    return this.spamWords.some(url => messageText.toLowerCase().includes(url))
   },
 
   banUser(nickname) {
-    if (!this.isUserBanned(nickname)) {
-      this.bannedUsers.push(nickname)
-      this.onlineNicknames = this.onlineNicknames.filter(
-        user => user !== nickname
-      )
-    }
+    if (!this.isUserBanned(nickname)) this.bannedUsers.push(nickname)
+    this.currentNickname = ''
+    this.onlineNicknames = this.onlineNicknames.filter(n => n !== nickname)
+    this.addSystemMessage(
+      `Пользователь ${nickname} забанен за использование запрещённых слов.`
+    )
   },
 }
