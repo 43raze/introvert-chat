@@ -2,9 +2,9 @@ function handleLogin(nickname) {
   nickname = nickname.trim()
   if (!nickname) return
   chatModel.signIn(nickname)
-  renderOnlineNicknames(chatModel.onlineNicknames)
   renderMessages(chatModel.messages)
-  elInputTextNickname.value = ''
+  renderBannedNicknames(chatModel.bannedUsers)
+  renderOnlineNicknames(chatModel.onlineNicknames)
 }
 
 function handleSendMessage(message) {
@@ -12,6 +12,6 @@ function handleSendMessage(message) {
   if (!message) return
   chatModel.addUserMessage(message)
   renderMessages(chatModel.messages)
-  renderBannedNickname(chatModel.bannedUsers)
-  elInputMessage.value = ''
+  renderBannedNicknames(chatModel.bannedUsers)
+  renderOnlineNicknames(chatModel.onlineNicknames)
 }
