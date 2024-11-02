@@ -10,11 +10,13 @@ elInputMessage.addEventListener('keydown', onSendMessage)
 function onClickButtonLogin() {
   if (!elInputTextNickname.value) return
   handleLogin(elInputTextNickname.value)
+  elInputTextNickname.value = ''
 }
 
 function onSendMessage(e) {
   if (e.key === 'Enter' || e.type === 'click') {
     handleSendMessage(elInputMessage.value)
+    elInputMessage.value = ''
   }
 }
 
