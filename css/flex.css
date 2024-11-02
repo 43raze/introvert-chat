@@ -33,3 +33,20 @@
 .f_centered > * {
   margin: auto;
 }
+
+.f_column {
+  flex-flow: column;
+  padding: 5px;
+  background-color: hsl(180, 85%, 60%);
+  border-bottom: 1px solid blue;
+}
+
+.f_column span {
+  margin-bottom: 5px;
+  border-bottom: 1px dashed black;
+}
+
+.f_column p {
+  text-decoration: line-through;
+  text-align: center;
+}
