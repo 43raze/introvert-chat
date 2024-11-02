@@ -58,8 +58,6 @@ function generateOnlineNickname(nickname) {
 function generateBannedNickname(nickname) {
   const elP = document.createElement('p')
   elP.textContent = nickname
-  elBannedUsersList.appendChild(elP)
-
   return elP
 }
 
