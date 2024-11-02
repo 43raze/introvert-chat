@@ -43,7 +43,7 @@ function renderMessages(messages) {
     const elMessage = generateMessageElement(message)
     elChatFlow.appendChild(elMessage)
   })
-  scrollToBottom()
+  scrollToBottom(elChatFlow)
 }
 
 function generateOnlineNickname(nickname) {
@@ -74,6 +74,6 @@ function generateMessageElement(message) {
   return elMessage
 }
 
-function scrollToBottom() {
-  elChatFlow.scrollTop = elChatFlow.scrollHeight
+function scrollToBottom(elem) {
+  elem.scrollTop = elem.scrollHeight
 }
