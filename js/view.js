@@ -4,16 +4,15 @@ const elButtonEnter = document.querySelector('#btn_enter')
 const elInputTextNickname = document.querySelector('#input_nickname')
 const elInputMessage = document.querySelector('#input_msg')
 const elButtonSendMessage = document.querySelector('#btn_send_msg')
+const elBannedUsersList = document.querySelector('.banned-users-list')
 
 elButtonEnter.addEventListener('click', onClickButtonLogin)
 elButtonSendMessage.addEventListener('click', onSendMessage)
 elInputMessage.addEventListener('keydown', onSendMessage)
 
 function onClickButtonLogin() {
-  const nickname = elInputTextNickname.value.trim()
-  if (!nickname) return
-  handleLogin(nickname)
-  elInputTextNickname.value = ''
+  if (!elInputTextNickname.value) return
+  handleLogin(elInputTextNickname.value)
 }
 
 function onSendMessage(e) {
@@ -27,6 +26,14 @@ function renderOnlineNicknames(nicknames) {
   nicknames.forEach(nickname => {
     const elNickname = generateOnlineNickname(nickname)
     elNicknameList.appendChild(elNickname)
+  })
+}
+
+function renderBannedNickname(nicknames) {
+  elBannedUsersList.innerHTML = ''
+  nicknames.forEach(nickname => {
+    const elBannedUser = generateBannedNickname(nickname)
+    elBannedUsersList.appendChild(elBannedUser)
   })
 }
 
@@ -46,6 +53,14 @@ function generateOnlineNickname(nickname) {
   elSpan.textContent = nickname
   elDiv.appendChild(elSpan)
   return elDiv
+}
+
+function generateBannedNickname(nickname) {
+  const elP = document.createElement('p')
+  elP.textContent = nickname
+  elBannedUsersList.appendChild(elP)
+
+  return elP
 }
 
 function generateMessageElement(message) {
