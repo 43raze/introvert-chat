@@ -55,6 +55,7 @@ const chatModel = {
 
     if (this.checkMessageTextBySpamWords(messageText)) {
       this.addSystemMessage('Запрещено использовать ссылки.')
+      this.banUser(this.currentNickname)
       return
     }
 
