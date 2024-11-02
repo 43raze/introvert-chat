@@ -15,3 +15,7 @@ function handleSendMessage(message) {
   renderBannedNicknames(chatModel.bannedUsers)
   renderOnlineNicknames(chatModel.onlineNicknames)
 }
+
+function handleInputCurrentMessage(currentMessage) {
+  chatModel.updateCurrentMessage(currentMessage)
+}

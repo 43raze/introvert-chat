@@ -8,12 +8,17 @@ function isTimeValid() {
 }
 
 const chatModel = {
+  currentMessage: '',
   currentNickname: '',
   onlineNicknames: [],
   messages: [],
   bannedUsers: [],
   censoredWords: ['банан', 'огурец', 'баклажан'],
   spamWords: ['https://', 'http://'],
+
+  pingNickname(nickname) {
+    this.currentMessage = `@${nickname} ${this.currentMessage}`
+  },
 
   isNicknameOnline(nickname) {
     return this.onlineNicknames.includes(nickname)
@@ -40,7 +45,7 @@ const chatModel = {
     }
   },
 
-  addUserMessage(messageText) {
+  addUserMessage() {
     if (this.currentNickname === '') return
 
     if (!isTimeValid()) {
@@ -48,12 +53,12 @@ const chatModel = {
       return
     }
 
-    if (this.checkMessageTextByCensoredWords(messageText)) {
+    if (this.checkMessageTextByCensoredWords(this.currentMessage)) {
       this.banUser(this.currentNickname)
       return
     }
 
-    if (this.checkMessageTextBySpamWords(messageText)) {
+    if (this.checkMessageTextBySpamWords(this.currentMessage)) {
       this.addSystemMessage('Запрещено использовать ссылки.')
       this.banUser(this.currentNickname)
       return
@@ -61,11 +66,17 @@ const chatModel = {
 
     const message = {
       type: 'user',
-      text: messageText,
+      text: this.currentMessage,
       nickname: this.currentNickname,
     }
 
+    this.updateCurrentMessage('')
+
     this.messages.push(message)
+  },
+
+  updateCurrentMessage(currentMessage) {
+    this.currentMessage = currentMessage
   },
 
   addSystemMessage(messageText, nickname) {
@@ -96,3 +107,28 @@ const chatModel = {
     )
   },
 }
+
+chatModel.updateCurrentMessage('')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('п')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('пр')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('при')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('прив')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('приве')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('привет')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('привет!')
+console.log(chatModel.currentMessage)
+chatModel.updateCurrentMessage('привет!!')
+console.log(chatModel.currentMessage)
+chatModel.pingNickname('James')
+console.log(chatModel.currentMessage)
+
+chatModel.addUserMessage()
+console.log(chatModel.currentMessage)
+console.log(chatModel.messages)

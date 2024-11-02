@@ -6,6 +6,12 @@ const elButtonSendMessage = document.querySelector('#btn_send_msg')
 elButtonEnter.addEventListener('click', onClickButtonLogin)
 elButtonSendMessage.addEventListener('click', onSendMessage)
 elInputMessage.addEventListener('keydown', onSendMessage)
+elInputMessage.addEventListener('input', onInputCurrentMessage)
+
+function onInputCurrentMessage(e) {
+  console.log(e.target.value)
+  handleInputCurrentMessage(e.target.value)
+}
 
 function onClickButtonLogin() {
   if (!elInputTextNickname.value) return
