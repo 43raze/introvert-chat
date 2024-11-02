@@ -1,10 +1,7 @@
-const elChatFlow = document.querySelector('.chat-flow')
-const elNicknameList = document.querySelector('.nickname-list')
 const elButtonEnter = document.querySelector('#btn_enter')
 const elInputTextNickname = document.querySelector('#input_nickname')
 const elInputMessage = document.querySelector('#input_msg')
 const elButtonSendMessage = document.querySelector('#btn_send_msg')
-const elBannedUsersList = document.querySelector('.banned-users-list')
 
 elButtonEnter.addEventListener('click', onClickButtonLogin)
 elButtonSendMessage.addEventListener('click', onSendMessage)
@@ -22,6 +19,7 @@ function onSendMessage(e) {
 }
 
 function renderOnlineNicknames(nicknames) {
+  const elNicknameList = document.querySelector('.nickname-list')
   elNicknameList.innerHTML = ''
   nicknames.forEach(nickname => {
     const elNickname = generateOnlineNickname(nickname)
@@ -29,7 +27,8 @@ function renderOnlineNicknames(nicknames) {
   })
 }
 
-function renderBannedNickname(nicknames) {
+function renderBannedNicknames(nicknames) {
+  const elBannedUsersList = document.querySelector('.banned-users-list')
   elBannedUsersList.innerHTML = ''
   nicknames.forEach(nickname => {
     const elBannedUser = generateBannedNickname(nickname)
@@ -38,6 +37,7 @@ function renderBannedNickname(nicknames) {
 }
 
 function renderMessages(messages) {
+  const elChatFlow = document.querySelector('.chat-flow')
   elChatFlow.innerHTML = ''
   messages.forEach(message => {
     const elMessage = generateMessageElement(message)
