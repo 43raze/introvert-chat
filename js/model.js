@@ -108,6 +108,7 @@ const chatModel = {
   },
 }
 
+chatModel.signIn('Bond')
 chatModel.updateCurrentMessage('')
 console.log(chatModel.currentMessage)
 chatModel.updateCurrentMessage('п')

@@ -1,5 +1,4 @@
 const elButtonEnter = document.querySelector('#btn_enter')
-const elInputTextNickname = document.querySelector('#input_nickname')
 const elInputMessage = document.querySelector('#input_msg')
 const elButtonSendMessage = document.querySelector('#btn_send_msg')
 
@@ -14,6 +13,7 @@ function onInputCurrentMessage(e) {
 }
 
 function onClickButtonLogin() {
+  const elInputTextNickname = document.querySelector('#input_nickname')
   if (!elInputTextNickname.value) return
   handleLogin(elInputTextNickname.value)
   elInputTextNickname.value = ''
@@ -24,6 +24,14 @@ function onSendMessage(e) {
     handleSendMessage(elInputMessage.value)
     elInputMessage.value = ''
   }
+}
+
+function onClickPingUser(e) {
+  console.log(e)
+}
+
+function renderCurrentMessage(currentMessage) {
+  elInputMessage.value = currentMessage
 }
 
 function renderOnlineNicknames(nicknames) {
@@ -59,6 +67,7 @@ function generateOnlineNickname(nickname) {
   const elSpan = document.createElement('span')
   elDiv.classList.add('wrap-span')
   elSpan.textContent = nickname
+  elSpan.onclick = onClickPingUser
   elDiv.appendChild(elSpan)
   return elDiv
 }
