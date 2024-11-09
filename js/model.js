@@ -16,18 +16,6 @@ const chatModel = {
   censoredWords: ['банан', 'огурец', 'баклажан'],
   spamWords: ['https://', 'http://'],
 
-  pingNickname(nickname) {
-    this.currentMessage = `@${nickname} ${this.currentMessage}`
-  },
-
-  isNicknameOnline(nickname) {
-    return this.onlineNicknames.includes(nickname)
-  },
-
-  isUserBanned(nickname) {
-    return this.bannedUsers.includes(nickname)
-  },
-
   signIn(nickname) {
     if (nickname === '') return
     if (this.isUserBanned(nickname)) {
@@ -37,6 +25,7 @@ const chatModel = {
     this.currentNickname = nickname
     this.addOnlineNickname(nickname)
   },
+
   isNicknameOnline(nickname) {
     return this.onlineNicknames.includes(nickname)
   },
@@ -64,19 +53,10 @@ const chatModel = {
   addUserMessage() {
     if (this.currentNickname === '') return
 
-    if (!isTimeValid()) {
-      this.addSystemMessage('Не флуди.')
-      return
-    }
+    const validationText = this.validateMessage()
 
-    if (this.checkMessageTextByCensoredWords(this.currentMessage)) {
-      this.banUser(this.currentNickname)
-      return
-    }
-
-    if (this.checkMessageTextBySpamWords(this.currentMessage)) {
-      this.addSystemMessage('Запрещено использовать ссылки.')
-      this.banUser(this.currentNickname)
+    if (!validationText.isValid) {
+      this.addSystemMessage(validationText.message)
       return
     }
 
@@ -91,17 +71,29 @@ const chatModel = {
     this.messages.push(message)
   },
 
-  updateCurrentMessage(currentMessage) {
-    this.currentMessage = currentMessage
+  validateMessage() {
+    if (this.checkFlood()) {
+      return { isValid: false, message: 'Не флуди!' }
+    }
+
+    if (this.checkCensoredWords()) {
+      this.banUser(this.currentNickname)
+      return {
+        isValid: false,
+        message: 'Пользователь забанен за цензурные слова.',
+      }
+    }
+
+    if (this.checkSpamWords()) {
+      this.banUser(this.currentNickname)
+      return { isValid: false, message: 'Запрещено использовать ссылки.' }
+    }
+
+    return { isValid: true, message: '' }
   },
 
-  addSystemMessage(messageText, nickname) {
-    const systemMessage = {
-      type: 'system',
-      text: messageText,
-      nickname: nickname || this.currentNickname,
-    }
-    this.messages.push(systemMessage)
+  updateCurrentMessage(currentMessage) {
+    this.currentMessage = currentMessage
   },
 
   checkMessageTextByCensoredWords(messageText) {
@@ -114,13 +106,26 @@ const chatModel = {
     return this.spamWords.some(url => messageText.toLowerCase().includes(url))
   },
 
+  checkFlood() {
+    return !isTimeValid()
+  },
+
+  checkCensoredWords() {
+    return this.checkMessageTextByCensoredWords(this.currentMessage)
+  },
+
+  checkSpamWords() {
+    return this.checkMessageTextBySpamWords(this.currentMessage)
+  },
+
+  pingNickname(nickname) {
+    this.currentMessage = `@${nickname} ${this.currentMessage}`
+  },
+
   banUser(nickname) {
     if (!this.isUserBanned(nickname)) this.bannedUsers.push(nickname)
     this.currentNickname = ''
     this.onlineNicknames = this.onlineNicknames.filter(n => n !== nickname)
-    this.addSystemMessage(
-      `Пользователь ${nickname} забанен за использование запрещённых слов.`
-    )
   },
 }
 
