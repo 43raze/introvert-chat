@@ -37,6 +37,22 @@ const chatModel = {
     this.currentNickname = nickname
     this.addOnlineNickname(nickname)
   },
+  isNicknameOnline(nickname) {
+    return this.onlineNicknames.includes(nickname)
+  },
+
+  isUserBanned(nickname) {
+    return this.bannedUsers.includes(nickname)
+  },
+
+  addSystemMessage(messageText, nickname) {
+    const systemMessage = {
+      type: 'system',
+      text: messageText,
+      nickname: nickname || this.currentNickname,
+    }
+    this.messages.push(systemMessage)
+  },
 
   addOnlineNickname(nickname) {
     if (!this.isNicknameOnline(nickname)) {
