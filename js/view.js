@@ -21,18 +21,18 @@ function onClickButtonLogin() {
 
 function onSendMessage(e) {
   if (e.key === 'Enter' || e.type === 'click') {
+    const elInputMessage = e.target.parentNode.children[0]
     handleSendMessage(elInputMessage.value)
-    elInputMessage.value = ''
   }
 }
 
 function onClickPingUser(e) {
   const nickname = e.target.getAttribute('data-username')
-
-  if (nickname) elInputMessage.value = `@${nickname} `
+  handlePingUser(nickname)
 }
 
 function renderCurrentMessage(currentMessage) {
+  const elInputMessage = document.querySelector('#input_msg')
   elInputMessage.value = currentMessage
 }
 

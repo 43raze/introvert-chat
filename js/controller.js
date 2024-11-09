@@ -5,6 +5,7 @@ function handleLogin(nickname) {
   renderMessages(chatModel.messages)
   renderBannedNicknames(chatModel.bannedUsers)
   renderOnlineNicknames(chatModel.onlineNicknames)
+  renderCurrentMessage(chatModel.currentMessage)
 }
 
 function handleSendMessage(message) {
@@ -14,10 +15,17 @@ function handleSendMessage(message) {
   renderMessages(chatModel.messages)
   renderBannedNicknames(chatModel.bannedUsers)
   renderOnlineNicknames(chatModel.onlineNicknames)
+  renderCurrentMessage(chatModel.currentMessage)
 }
 
 function handleInputCurrentMessage(currentMessage) {
   chatModel.updateCurrentMessage(currentMessage)
+  renderCurrentMessage(chatModel.currentMessage)
+}
+
+function handlePingUser(nickname) {
+  chatModel.pingNickname(nickname)
+  renderCurrentMessage(chatModel.currentMessage)
 }
 
 renderMessages(chatModel.messages)

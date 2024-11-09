@@ -57,6 +57,7 @@ const chatModel = {
 
     if (!validationText.isValid) {
       this.addSystemMessage(validationText.message)
+      this.updateCurrentMessage('')
       return
     }
 
@@ -66,9 +67,9 @@ const chatModel = {
       nickname: this.currentNickname,
     }
 
-    this.updateCurrentMessage('')
-
     this.messages.push(message)
+
+    this.updateCurrentMessage('')
   },
 
   validateMessage() {
@@ -130,6 +131,8 @@ const chatModel = {
 }
 
 chatModel.signIn('Bond')
+chatModel.signIn('James')
+chatModel.signIn('Piter')
 chatModel.updateCurrentMessage('')
 console.log(chatModel.currentMessage)
 chatModel.updateCurrentMessage('п')
