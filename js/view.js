@@ -27,7 +27,9 @@ function onSendMessage(e) {
 }
 
 function onClickPingUser(e) {
-  console.log(e)
+  const nickname = e.target.getAttribute('data-username')
+
+  if (nickname) elInputMessage.value = `@${nickname} `
 }
 
 function renderCurrentMessage(currentMessage) {
@@ -66,9 +68,13 @@ function generateOnlineNickname(nickname) {
   const elDiv = document.createElement('div')
   const elSpan = document.createElement('span')
   elDiv.classList.add('wrap-span')
+
   elSpan.textContent = nickname
+  elSpan.setAttribute('data-username', nickname)
   elSpan.onclick = onClickPingUser
+
   elDiv.appendChild(elSpan)
+
   return elDiv
 }
 
