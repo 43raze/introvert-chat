@@ -78,11 +78,14 @@ const chatModel = {
     }
 
     if (this.checkCensoredWords()) {
-      this.banUser(this.currentNickname)
-      return {
+      const o = {
         isValid: false,
         message: 'Пользователь забанен за цензурные слова.',
       }
+
+      this.banUser(this.currentNickname)
+
+      return o
     }
 
     if (this.checkSpamWords()) {
