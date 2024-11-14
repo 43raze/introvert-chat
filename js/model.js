@@ -80,7 +80,7 @@ const chatModel = {
     if (this.checkCensoredWords()) {
       const o = {
         isValid: false,
-        message: 'Пользователь забанен за цензурные слова.',
+        message: `Пользователь ${this.currentNickname} забанен за цензурные слова.`,
       }
 
       this.banUser(this.currentNickname)
